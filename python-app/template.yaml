@@ -42,7 +42,7 @@ spec:
       action: publish:github
       input:
         description: This is ${{ parameters.component_id }}
-        repoUrl: github.com?owner=javamllama&repo=${{parameters.component_id}}
+        repoUrl: github.com?owner=unicorn-home&repo=${{parameters.component_id}}
         protectDefaultBranch: false
         repoVisibility: public
 
