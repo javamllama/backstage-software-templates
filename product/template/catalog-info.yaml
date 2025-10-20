@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: ${{ values.product_name }}
+  description: Engineering Product Onboarding for ${{ values.product_name }}:${{ values.product_id}}
+  annotations:
+    github.com/project-slug: unicorn-home/registered_products/${{ values.product_key }}
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: domain
+  owner: development
+  lifecycle: experimental

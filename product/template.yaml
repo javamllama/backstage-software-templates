@@ -1,0 +1,51 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: product-template
+  title: Product Onboarding Template
+  description: Onboards an Engineering Product to the IDP
+spec:
+  owner: development
+  type: domain
+
+  parameters:
+    - title: Fill in some steps
+      required:
+        - product_id
+        - product_name
+      properties:
+        product_id:
+          title: Product ID
+          type: string
+          description: Provide a product id
+          pattern: '^([a-zA-Z][a-zA-Z0-9]+)(-[a-zA-Z0-9]+)*$'
+        product_name:
+          title: Product Name
+          type: string
+          description: The Product Name
+
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./template
+        values:
+          product_id: ${{parameters.product_id}}
+          product_name: ${{parameters.product_name}}
+          product_key: ${{ parameters.product_name | replace(" ", "-") | replace("\"", "") | replace ("'", "") | lower }}
+
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        description: This is ${{ parameters.component_id }}
+        repoUrl: github.com?owner=unicorn-home&repo=registered_products
+        commitMessage: 'Registering Product ${{parameters.product_name}}:${{parameters.product_id}}'
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+        catalogInfoPath: "${{ steps['fetch-base'].input.values.product_key }}/catalog-info.yaml"
