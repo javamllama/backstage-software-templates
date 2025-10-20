@@ -7,6 +7,6 @@ metadata:
     github.com/project-slug: unicorn-home/registered_products/${{ values.product_key }}
     backstage.io/techdocs-ref: dir:.
 spec:
-  type: domain
+  type: product-group
   owner: development
   lifecycle: experimental
