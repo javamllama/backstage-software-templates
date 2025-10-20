@@ -37,11 +37,11 @@ spec:
 
     - id: publish
       name: Publish
-      action: publish:github
+      action: github:repo:push
       input:
         description: This is ${{ parameters.component_id }}
         repoUrl: github.com?owner=unicorn-home&repo=registered_products
-        commitMessage: 'Registering Product ${{parameters.product_name}}:${{parameters.product_id}}'
+        gitCommitMessage: 'Registering Product ${{parameters.product_name}}:${{parameters.product_id}}'
 
     - id: register
       name: Register
